@@ -1,0 +1,43 @@
+<!-- businesses/templates/businesses/business_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Business Form{% endblock %}</title>
+</head>
+<body>
+    <h1>{% block heading %}{% if form.instance.id %}Edit Business{% else %}Add Business{% endif %}{% endblock %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+
+    <h2>Businesses List</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Owner Info</th>
+            <th>Employee Size</th>
+            <th>Action</th>
+        </tr>
+        {% for business in businesses %}
+            <tr>
+                <td>{{ business.name }}</td>
+                <td>{{ business.address }}</td>
+                <td>{{ business.owner_info }}</td>
+                <td>{{ business.employee_size }}</td>
+                <td><a href="{% url 'business_update' business.id %}">Edit</td>
+                <td><a href="{% url 'business_delete' business.id %}">Delete</td>
+
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="2">No businesses found.</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <!-- <a href="{% url 'business_list' %}">Back to list</a> -->
+</body>
+</html>
