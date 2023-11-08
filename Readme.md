@@ -114,3 +114,36 @@ These instructions will help you get a copy of the project up and running on you
     ```
     python manage.py test
     ```
+
+### Deployment (Cloud aws)
+
+## on aws side you should have ecs, ecr and cluster
+
+- create the repository in aws ecr
+  - deploye docker image in repository use tag latest
+
+  - example commands to deployee image. you can found commands related to your repository in push commands option.
+     
+    1. ```aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 550513526501.dkr.ecr.ap-south-1.  amazonaws.com
+        ```
+
+    2.  ```
+        docker build -t reponame .
+        ```
+
+    3.  ```
+        docker tag reponame:latest 550513526501.dkr.ecr.ap-south-1.amazonaws.com/reponame:latest
+        ``` 
+
+    4. ```
+        docker push 550513526501.dkr.ecr.ap-south-1.amazonaws.com/reponame:latest
+        ```
+
+- create the task defination use url of docker image from repository
+  - select role accordingly
+
+- create the cluster in ecs choose fargate machine
+    - create the service.
+        - select task defination that has created in task defination
+
+- we can use the public ip of service task to access the application

@@ -38,4 +38,3 @@ def test_create_business(client):
     assert response.status_code == 302  # Check for a redirect
     assert Business.objects.filter(name="New Business").exists()
 
-# Add more view test cases for update and delete views as needed
